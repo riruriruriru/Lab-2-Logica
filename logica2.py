@@ -2,9 +2,56 @@ import numpy as np
 import matplotlib.pyplot as plt
 import skfuzzy as fuzz
 import uwu as u
-def recibirCantidad():
-	return
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def recibirCantidad():
+	cantidadCafe = 0
+	
+	cont = 0
+	
+	while True:
+		
+		print("Ingrese la cantidad de café [ml] número entero entre [0,450]: " )
+		cambiar = 0
+		try:
+			cantidadCafe = int(input())
+			cont = 0
+			retorno = [0,cantidadCafe]
+			if cantidadCafe > 450 or cantidadCafe < 0:
+				print("Ingrese un valor entre el intervalo indicado")
+			else:
+				while cambiar == 0:
+					print("Ingresó una cantidad de " + str(cantidadCafe)+"[ml]. ¿Desea cambiarla?")
+					print(bcolors.BOLD+bcolors.OKGREEN+"1. Si"+bcolors.ENDC)
+					print(bcolors.BOLD+bcolors.OKGREEN+"2. No"+bcolors.ENDC)
+					try:
+						cambiar = int(input())
+						if cambiar == 1:
+							cambiar = 3
+							print("Se eliminará su valor ingresado...")
+						elif cambiar == 2:
+							retorno = [0, cantidadCafe]
+							return retorno
+						else:
+							print("Ingrese una opción válida")
+							cambiar = 0
+					except:
+						print("Ingrese el número de la opción correspondiente")
+		except:
+			cont = 0
+			print("Ingrese número entero entre [0,450]")
+	return
+	
+	
 def mostrarParametros(parametros):
 	#print("holi")
 	#print(parametros)
@@ -32,9 +79,9 @@ def recibirTemperatura():
 				print("Ingrese un valor entre el intervalo indicado")
 			else:
 				while cambiar == 0:
-					print("Ingresó una temperatura de °" + str(nivelTemperatura)+". ¿Desea cambiarla?")
-					print("1. Si")
-					print("2. No")
+					print("Ingresó una temperatura de " + str(nivelTemperatura)+"°. ¿Desea cambiarla?")
+					print(bcolors.BOLD+bcolors.OKGREEN+"1. Si"+bcolors.ENDC)
+					print(bcolors.BOLD+bcolors.OKGREEN+"2. No"+bcolors.ENDC)
 					try:
 						cambiar = int(input())
 						if cambiar == 1:
@@ -55,7 +102,6 @@ def recibirTemperatura():
 	
 
 def recibirNivelIntensidad():
-	u.uwu()
 	nivelIntensidad = ["1", "2", "3", "4", "5"]
 	opcion = 0
 	cont = 0
@@ -152,32 +198,50 @@ def menu():
 	temperaturaAmbiente = -1
 	nivelIntensidad = -1
 	tipoPreparacion = -1
-	while opcion!= 5 or (cantidadCafe != -1 and temperaturaAmbiente != -1 and nivelIntensidad != -1 and tipoPreparacion != -1):		
+	while opcion!= 5 and (cantidadCafe == -1 or temperaturaAmbiente == -1 or nivelIntensidad == -1 or tipoPreparacion == -1):		
 		parametros = [["Cantidad de Café",cantidadCafe],["Temperatura Ambiente",temperaturaAmbiente],["Nivel de Intensidad",nivelIntensidad],["Tipo de Preparación",tipoPreparacion]]
 		mostrarParametros(parametros)
-		print("Ingrese una de las siguientes opciones: ")
-		print("1. Ingresar cantidad de café [ml]")
-		print("2. Ingresar temperatura ambiente [C°]")
-		print("3. Nivel de intensidad [1 al 5]")
-		print("4. Tipo de preparacion")
-		print("5. Salir")
+		print(bcolors.BOLD+bcolors.YELLOW+"Ingrese una de las siguientes opciones: "+ bcolors.ENDC)
+		if cantidadCafe == -1:	
+			print(bcolors.OKBLUE+"1. Ingresar cantidad de café [ml]"+bcolors.ENDC)
+		else:
+			print(bcolors.OKGREEN+"1. Modificar cantidad de café [ml]"+bcolors.ENDC)
+		if temperaturaAmbiente == -1:
+			print(bcolors.OKBLUE+"2. Ingresar temperatura ambiente [C°]"+bcolors.ENDC)
+		else:
+			print(bcolors.OKGREEN+"2. Modificar temperatura ambiente [C°]"+bcolors.ENDC)
+		if nivelIntensidad == -1:	
+			print(bcolors.OKBLUE+"3. Ingresar Nivel de intensidad [1 al 5]"+bcolors.ENDC)
+		else:
+			print(bcolors.OKGREEN+"3. Modificar Nivel de intensidad [1 al 5]"+bcolors.ENDC)
+		if tipoPreparacion == -1:	
+			print(bcolors.OKBLUE+"4. Ingresar Tipo de preparacion"+bcolors.ENDC)
+		else: 
+			print(bcolors.OKGREEN+"4. Modificar Tipo de preparacion"+bcolors.ENDC)
+		print(bcolors.RED+"5. Salir"+bcolors.ENDC)
 		#print("6. Salir")
 		try:
 			opcion = int(input())
 			if opcion>5 or opcion<1:
 				print("Ingrese una opcion valida")
 				opcion = 0
+			elif opcion == 1:
+				retorno = []
+				retorno = recibirCantidad()
+				opcion = retorno[0]
+				cantidadCafe = retorno[1]
+				
 			elif opcion == 2:
 				retorno = []
 				retorno = recibirTemperatura()
 				opcion = retorno[0]
 				temperaturaAmbiente = retorno[1]
 				#print("Temperatura Ambiente: " + str(temperaturaAmbiente))
-			
 			elif opcion == 3:
 				retorno = []
 				retorno = recibirNivelIntensidad()
 				opcion = retorno[0]
+				
 				if opcion == 5:
 					return
 				nivelIntensidad = retorno[1]
@@ -198,6 +262,8 @@ def menu():
 		except:
 			#print("que wea pasa uwu")
 			print("Ingrese el número de la opción correspondiente")
+	print(bcolors.BOLD+bcolors.YELLOW+"Terminó de ingresar todas las opciones"+bcolors.ENDC)
+	print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Iniciando preparación de café..."+bcolors.ENDC)
 	return
 
 menu()

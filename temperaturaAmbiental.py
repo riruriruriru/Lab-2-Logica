@@ -55,5 +55,5 @@ def funcionCalor(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
 	calor = fuzz.smf(temperatura,10,30)
 	return calor
-getTemperaturaAmbiental(30)
+#getTemperaturaAmbiental(30)
 temperaturaAmbiental()

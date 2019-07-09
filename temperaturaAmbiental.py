@@ -16,9 +16,7 @@ def temperaturaAmbiental():
 
 def funcionFrio(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
-	print("me mori uwu")
 	frio = fuzz.trapmf(temperatura.universe,[0,0,15,20])
-	print("me mori uwu2")
 	return frio
 
 def funcionTemplado(temperatura):
@@ -30,7 +28,3 @@ def funcionCalor(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
 	calor = fuzz.trapmf(temperatura.universe,[20,25,35,35])
 	return calor
-
-
-
-

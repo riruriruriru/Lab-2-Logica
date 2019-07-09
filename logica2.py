@@ -30,6 +30,8 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 	inputTaza = distance(inputTaza)
 	print("UWU")
 	print(inputTaza)
+	if inputTemperatura == 0:
+		inputTemperatura = inputTemperatura+1
 	temperaturaFuzzy = temp.temperaturaAmbiental()
 	tamanioTazaFuzzy = taza.tamanioTaza()
 	intensidadFuzzy =intensity.intensidad()

@@ -4,31 +4,6 @@ from skfuzzy import control as ctrl
 import matplotlib.pyplot as plt
 import graficar as graficar
 
-#Entrada: entero entre -5 y 45
-#Salida: "frio" si e frio, "templado" si es templado, "calor" si es calor
-#def getTemperaturaAmbiental(x):
-#	temperatura = np.arange(-5,45)
-#	frio = funcionFrio(temperatura)
-#	templado = funcionTemplado(temperatura)
-#	calor = funcionCalor(temperatura)
-#	xFrio = frio[x+5]
-#	xTemplado = templado[x+5]
-#	xCalor = calor[x+5]
-#	mayor = max([xFrio,xTemplado,xCalor])
-#	print("frio ",xFrio)
-#	print("templado ",xTemplado)
-#	print("calor ",xCalor)
-#	print("max ",mayor)
-#	if xFrio == mayor:
-#		print("frio")
-#		return "frio"
-#	elif xTemplado == mayor:
-#		print("templado")
-#		return "templado"
-#	else:
-#		print("calor")
-#		return "calor"
-
 def temperaturaAmbiental():
 	temperatura = ctrl.Antecedent(np.arange(-5,45),'temperatura')
 	temperatura['frio'] = funcionFrio(temperatura)

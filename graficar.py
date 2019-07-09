@@ -13,7 +13,7 @@ def graficar(x,y,names,xlabel,ylabel,title):
 	return
 
 
-def graficarGrid(x1,x2,x3,x4,y1,y2,y3,y4,names,xlabel,ylabel,title):
+def graficarGrid(x1,x2,x3,x4,x5,y1,y2,y3,y4,y5,names,xlabel,ylabel,title):
 	f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 	cont = 0
 	for variableLinguistica in y1:
@@ -40,6 +40,10 @@ def graficarGrid(x1,x2,x3,x4,y1,y2,y3,y4,names,xlabel,ylabel,title):
 	cont = 0
 	ax4.set_ylabel(ylabel[3])
 	ax4.set_xlabel(xlabel[3])
+
+
+
+
 	ax1.legend(numpoints=1)
 	#ax1.ylabel(ylabel[0])
 	#ax1.xlabel(xlabel[0])
@@ -59,5 +63,17 @@ def graficarGrid(x1,x2,x3,x4,y1,y2,y3,y4,names,xlabel,ylabel,title):
 	ax2.set_title("Cantidad de Cafe vs Pertenencia")
 	ax3.set_title("Cantidad de Leche vs Pertenencia")
 	ax4.set_title("Cantidad de Chocolate vs Pertenencia")
+	
+	plt.show()
+
+	f, (ax5) = plt.subplots(1,1)
+	for variableLinguistica in y5:
+		ax5.plot(x5, y5[cont], label=names[cont])
+		cont = cont + 1
+	cont = 0
+	ax5.set_ylabel(ylabel[3])
+	ax5.set_xlabel(xlabel[3])
+	ax5.legend(numpoints=1)
+	ax5.set_title("Cantidad de Tiempo vs Pertenencia")
 	plt.show()
 	return

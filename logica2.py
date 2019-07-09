@@ -1,7 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import skfuzzy as fuzz
-import uwu as u
+import prepararCafe as rules
+import temperaturaAmbiental as temp
+import tamanioTaza as taza
+import intensidad as intensity
+import cantidadAguaLecheChocolate as quantity
+from skfuzzy import control as ctrl
+
+
 
 class bcolors:
     HEADER = '\033[95m'
@@ -13,6 +20,29 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
+	temperaturaFuzzy = temp.temperaturaAmbiental()
+	tamanioTazaFuzzy = taza.tamanioTaza()
+	intensidadFuzzy =intensity.intensidad()
+	agua, cafe, leche, chocolate, tiempo = quantity.cantidadesAguaLecheChocolateCafeTiempo()
+	regla1, regla2, regla3, regla4, regla5, regla6 = rules.reglas(tamanioTazaFuzzy, temperaturaFuzzy, intensidadFuzzy, agua, cafe,leche, chocolate, tiempo, inputTipo)
+	controlCafetera = ctrl.ControlSystem([regla1, regla2, regla3,regla4,regla5,regla6])
+	opciones = ctrl.ControlSystemSimulation(controlCafetera)
+	opciones.input['temperatura'] = inputTemperatura
+	opciones.input['tamanio'] = inputTaza
+	opciones.input['intensidad'] = inputInt
+	opciones.compute()
+	#Once computed, we can view the result as well as visualize it.
+	print(opciones.output['agua'])
+	print(opciones.output['cafe'])
+	print(opciones.output['tiempo'])
+	agua.view(sim=opciones)
+
+
+	
+
+	
+
 def recibirCantidad():
 	cantidadCafe = 0
 	
@@ -20,7 +50,7 @@ def recibirCantidad():
 	
 	while True:
 		
-		print("Ingrese la cantidad de café [ml] número entero entre [0,450]: " )
+		print("Ingrese el tamaño de taza [ml] número entero entre [0,450]: " )
 		cambiar = 0
 		try:
 			cantidadCafe = int(input())
@@ -30,7 +60,7 @@ def recibirCantidad():
 				print("Ingrese un valor entre el intervalo indicado")
 			else:
 				while cambiar == 0:
-					print("Ingresó una cantidad de " + str(cantidadCafe)+"[ml]. ¿Desea cambiarla?")
+					print("Ingresó un tamaño de " + str(cantidadCafe)+"[ml]. ¿Desea cambiarla?")
 					print(bcolors.BOLD+bcolors.OKGREEN+"1. Si"+bcolors.ENDC)
 					print(bcolors.BOLD+bcolors.OKGREEN+"2. No"+bcolors.ENDC)
 					try:
@@ -204,9 +234,9 @@ def menu():
 		mostrarParametros(parametros)
 		print(bcolors.BOLD+bcolors.YELLOW+"Ingrese una de las siguientes opciones: "+ bcolors.ENDC)
 		if cantidadCafe == -1:	
-			print(bcolors.OKBLUE+"1. Ingresar cantidad de café [ml]"+bcolors.ENDC)
+			print(bcolors.OKBLUE+"1. Ingresar tamanio de taza [ml]"+bcolors.ENDC)
 		else:
-			print(bcolors.OKGREEN+"1. Modificar cantidad de café [ml]"+bcolors.ENDC)
+			print(bcolors.OKGREEN+"1. Modificar tamanio de taza [ml]"+bcolors.ENDC)
 		if temperaturaAmbiente == -1:
 			print(bcolors.OKBLUE+"2. Ingresar temperatura ambiente [C°]"+bcolors.ENDC)
 		else:
@@ -266,6 +296,8 @@ def menu():
 	if exit == 0:
 		print(bcolors.BOLD+bcolors.YELLOW+"Terminó de ingresar todas las opciones"+bcolors.ENDC)
 		print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Iniciando preparación de café ☕️ ..."+bcolors.ENDC)
+		print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Preparando ☕️ "+str(tipoPreparacion)+""+bcolors.ENDC)
+		preparacionDeCafe(temperaturaAmbiente,cantidadCafe,nivelIntensidad,tipoPreparacion)
 	return
 
 menu()

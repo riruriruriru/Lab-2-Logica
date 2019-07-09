@@ -32,6 +32,5 @@ def intensidad():
 	intensidad["medio"] = funcionMedio(intensidad.universe)
 	intensidad["fuerte"] = funcionFuerte(intensidad.universe)
 	graficar.graficar(intensidad.universe,[intensidad["suave"].mf,intensidad["medio"].mf,intensidad["fuerte"].mf],["Suave","Medio","Fuerte"],"Grado de Intensidad","Grado de pertenencia","Intensidad del Café")
-	return
+	return intensidad
 
-intensidad()

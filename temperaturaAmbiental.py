@@ -32,4 +32,3 @@ def funcionCalor(temperatura):
 	calor = fuzz.smf(temperatura.universe,10,30)
 	return calor
 
-temperaturaAmbiental()

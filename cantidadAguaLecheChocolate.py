@@ -34,9 +34,8 @@ def cantidadesAguaLecheChocolateCafeTiempo():
 	#graficar.graficar(chocolate,[chocolate["poca"],chocolate["media"],chocolate["mucha"]],["Poca","Media","Mucha"],"Cantidad de Chocolate[grs]","Grado de pertenencia","Cantidad de Leche")
 	#graficar.graficar(tiempo,[tiempo["poca"],tiempo["media"],tiempo["mucha"]],["Poca","Media","Mucha"],"Tiempo[s]","Grado de pertenencia","Cantidad de Tiempo")
 	graficar.graficarGrid(agua.universe,cafe.universe,leche.universe,chocolate.universe, tiempo.universe,[agua['poca'].mf,agua['media'].mf,agua['mucha'].mf],[cafe["poca"].mf,cafe["media"].mf,cafe["mucha"].mf],[leche["poca"].mf,leche["media"].mf,leche["mucha"].mf],[chocolate["poca"].mf,chocolate["media"].mf,chocolate["mucha"].mf],[tiempo["poca"].mf,tiempo["media"].mf,tiempo["mucha"].mf],["Poca","Media","Mucha"],["Agua [ml]","Cafe [grs]","Leche [grs]","Chocolate [grs]", "Tiempo [s]"],["Pertenencia","Pertenencia","Pertenencia","Pertenencia"],"Cantidades vs Pertenencia")
-	return
+	return agua, cafe, leche, chocolate, tiempo
 
 #graficarGrid(x1,x2,x3,x4,y1,y2,y3,y4,names,xlabel,ylabel,title)
 
 
-cantidadesAguaLecheChocolateCafeTiempo()

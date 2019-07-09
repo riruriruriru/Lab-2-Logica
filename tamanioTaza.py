@@ -30,4 +30,3 @@ def funcionGrande(tamanio):
 		grande[i] = 1-grande[i]
 	return grande
 
-tamanioTaza()

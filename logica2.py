@@ -20,7 +20,16 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+def distance(valorAgua):
+	valoresAgua = [0,30,60,90,120,150,200,250,300,350,400,450]
+	for valor in valoresAgua:
+		distancia = valor-valorAgua
+		if distancia >= 0:
+			return int(valor)
 def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
+	inputTaza = distance(inputTaza)
+	print("UWU")
+	print(inputTaza)
 	temperaturaFuzzy = temp.temperaturaAmbiental()
 	tamanioTazaFuzzy = taza.tamanioTaza()
 	intensidadFuzzy =intensity.intensidad()
@@ -32,11 +41,46 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 	opciones.input['tamanio'] = inputTaza
 	opciones.input['intensidad'] = inputInt
 	opciones.compute()
+	
+	if inputTipo == "Latte":
+		resultadoAgua =distance(opciones.output['agua'])
+		resultadoTiempo =int(opciones.output['tiempo'])
+		resultadoLeche =int(opciones.output['leche'])
+		resultadoCafe =int(opciones.output['cafe'])
+		print(resultadoAgua)
+		print(resultadoTiempo)
+		print(resultadoLeche)
+		print(resultadoCafe)
+	elif inputTipo == "Capuccino":
+		resultadoAgua =distance(opciones.output['agua'])
+		resultadoTiempo =int(opciones.output['tiempo'])
+		resultadoLeche =int(opciones.output['leche'])
+		resultadoCafe =int(opciones.output['cafe'])
+		print(resultadoAgua)
+		print(resultadoTiempo)
+		print(resultadoLeche)
+		print(resultadoCafe)
+	elif inputTipo == "Mokaccino":
+		resultadoAgua =distance(opciones.output['agua'])
+		resultadoTiempo =int(opciones.output['tiempo'])
+		resultadoLeche =int(opciones.output['leche'])
+		resultadoCafe =int(opciones.output['cafe'])
+		resultadoChocolate =int(opciones.output['chocolate'])
+		print(resultadoAgua)
+		print(resultadoTiempo)
+		print(resultadoLeche)
+		print(resultadoCafe)
+		print(resultadoChocolate)
+	elif inputTipo == "Espresso":
+		resultadoAgua =distance(opciones.output['agua'])
+		resultadoTiempo =int(opciones.output['tiempo'])
+		resultadoCafe =int(opciones.output['cafe'])
+		print(resultadoAgua)
+		print(resultadoTiempo)
+		print(resultadoCafe)
 	#Once computed, we can view the result as well as visualize it.
-	print(opciones.output['agua'])
-	print(opciones.output['cafe'])
-	print(opciones.output['tiempo'])
 	agua.view(sim=opciones)
+	
 
 
 	

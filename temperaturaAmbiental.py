@@ -1,5 +1,6 @@
 import numpy as np
 import skfuzzy as fuzz
+from skfuzzy import control as ctrl
 import matplotlib.pyplot as plt
 import graficar as graficar
 
@@ -29,18 +30,18 @@ import graficar as graficar
 #		return "calor"
 
 def temperaturaAmbiental():
-	temperatura = np.arange(-5,45)
-	frio = funcionFrio(temperatura)
-	templado = funcionTemplado(temperatura)
-	calor = funcionCalor(temperatura)
-	graficar.graficar(temperatura,[frio,templado,calor],["Frío","Templado","Calor"],"Temperatura en °C","Grado de pertenencia","Temperatura Ambiental")
-	return
+	temperatura = ctrl.Antecedent(np.arange(-5,45),'temperatura')
+	temperatura['frio'] = funcionFrio(temperatura)
+	temperatura['templado'] = funcionTemplado(temperatura)
+	temperatura['calor'] = funcionCalor(temperatura)
+	graficar.graficar(temperatura.universe,[temperatura["frio"].mf,temperatura["templado"].mf,temperatura["calor"].mf],["Frío","Templado","Calor"],"Temperatura en °C","Grado de pertenencia","Temperatura Ambiental")
+	return temperatura
 
 
 
 def funcionFrio(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
-	frio = fuzz.smf(temperatura,0,25)
+	frio = fuzz.smf(temperatura.universe,0,25)
 	for i in range(len(frio)):
 		frio[i] = 1-frio[i]
 
@@ -48,12 +49,12 @@ def funcionFrio(temperatura):
 
 def funcionTemplado(temperatura):
 	#gaussmf(valores,promedio,desviacion estandar)
-	templado = fuzz.gaussmf(temperatura,20,10)
+	templado = fuzz.gaussmf(temperatura.universe,20,10)
 	return templado
 
 def funcionCalor(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
-	calor = fuzz.smf(temperatura,10,30)
+	calor = fuzz.smf(temperatura.universe,10,30)
 	return calor
-#getTemperaturaAmbiental(30)
+
 temperaturaAmbiental()

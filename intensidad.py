@@ -1,5 +1,6 @@
 import numpy as np
 import skfuzzy as fuzz
+from skfuzzy import control as ctrl
 import matplotlib.pyplot as plt
 import graficar as graficar
 
@@ -25,14 +26,12 @@ def funcionFuerte(intensidad):
 
 	return fuerte
 
-
-
 def intensidad():
-	intensidad = np.arange(1,6)
-	suave = funcionSuave(intensidad)
-	medio = funcionMedio(intensidad)
-	fuerte = funcionFuerte(intensidad)
-	graficar.graficar(intensidad,[suave,medio,fuerte],["Suave","Medio","Fuerte"],"Grado de Intensidad","Grado de pertenencia","Intensidad del Café")
+	intensidad = ctrl.Antecedent(np.arange(1,6),'intensidad') 
+	intensidad["suave"] = funcionSuave(intensidad.universe)
+	intensidad["medio"] = funcionMedio(intensidad.universe)
+	intensidad["fuerte"] = funcionFuerte(intensidad.universe)
+	graficar.graficar(intensidad.universe,[intensidad["suave"].mf,intensidad["medio"].mf,intensidad["fuerte"].mf],["Suave","Medio","Fuerte"],"Grado de Intensidad","Grado de pertenencia","Intensidad del Café")
 	return
 
 intensidad()

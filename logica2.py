@@ -69,7 +69,7 @@ def recibirTemperatura():
 	
 	while True:
 		
-		print("Ingrese la temperatura ambiente [°C] número entero entre [0,33]: " )
+		print("Ingrese la temperatura ambiente [°C] número entero entre [0,33] 🥶 🥵 " )
 		cambiar = 0
 		try:
 			nivelTemperatura = int(input())
@@ -198,6 +198,7 @@ def menu():
 	temperaturaAmbiente = -1
 	nivelIntensidad = -1
 	tipoPreparacion = -1
+	exit = 0;
 	while opcion!= 5 and (cantidadCafe == -1 or temperaturaAmbiente == -1 or nivelIntensidad == -1 or tipoPreparacion == -1):		
 		parametros = [["Cantidad de Café",cantidadCafe],["Temperatura Ambiente",temperaturaAmbiente],["Nivel de Intensidad",nivelIntensidad],["Tipo de Preparación",tipoPreparacion]]
 		mostrarParametros(parametros)
@@ -258,12 +259,13 @@ def menu():
 				#print(retorno)
 				#print("Tipo preparacion: " + tipoPreparacion)
 			else:
-				print("UWU")
+				exit = 1
 		except:
 			#print("que wea pasa uwu")
 			print("Ingrese el número de la opción correspondiente")
-	print(bcolors.BOLD+bcolors.YELLOW+"Terminó de ingresar todas las opciones"+bcolors.ENDC)
-	print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Iniciando preparación de café..."+bcolors.ENDC)
+	if exit == 0:
+		print(bcolors.BOLD+bcolors.YELLOW+"Terminó de ingresar todas las opciones"+bcolors.ENDC)
+		print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Iniciando preparación de café ☕️ ..."+bcolors.ENDC)
 	return
 
 menu()

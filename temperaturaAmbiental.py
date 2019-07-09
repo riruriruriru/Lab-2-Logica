@@ -32,9 +32,9 @@ import graficar as graficar
 def temperaturaAmbiental():
 	temperatura = ctrl.Antecedent(np.arange(-5,45),'temperatura')
 	temperatura['frio'] = funcionFrio(temperatura)
-	temperatura['templado'] = funcionTemplado(temperatura)
-	temperatura['calor'] = funcionCalor(temperatura)
-	graficar.graficar(temperatura.universe,[temperatura["frio"].mf,temperatura["templado"].mf,temperatura["calor"].mf],["Frío","Templado","Calor"],"Temperatura en °C","Grado de pertenencia","Temperatura Ambiental")
+	temperatura['calido'] = funcionTemplado(temperatura)
+	temperatura['caluroso'] = funcionCalor(temperatura)
+	graficar.graficar(temperatura.universe,[temperatura["frio"].mf,temperatura["calido"].mf,temperatura["caluroso"].mf],["Frío","Cálido","Caluroso"],"Temperatura en °C","Grado de pertenencia","Temperatura Ambiental")
 	return temperatura
 
 

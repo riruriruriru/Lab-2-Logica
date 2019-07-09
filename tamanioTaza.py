@@ -9,19 +9,23 @@ def tamanioTaza():
 	tamanio['pequenio'] = funcionPequenio(tamanio)
 	tamanio['mediano'] = funcionMediano(tamanio)
 	tamanio['grande'] = funcionGrande(tamanio)
+	#agua = ctrl.Consequent([0, 30, 60, 90, 120, 150, 200, 250, 300, 350, 400, 450], 'agua')
+	#agua['poca'] = fuzz.trapmf(agua.universe,[0,0,150,250])
+	#agua['media'] = fuzz.trimf(agua.universe,[150,250,350])
+	#agua['mucha'] = fuzz.trapmf(agua.universe,[250,350,450,450])
 	graficar.graficar(tamanio.universe,[tamanio["pequenio"].mf,tamanio["mediano"].mf,tamanio["grande"].mf],["Pequeño","Mediano","Grande"],"Tamaño de taza en ml","Grado de pertenencia","Tamaño taza")
 	return tamanio
 
 def funcionPequenio(tamanio):
-	pequenio = fuzz.zmf(tamanio.universe,250,400)
+	pequenio = fuzz.trapmf(tamanio.universe,[0,0,150,250])
 	return pequenio
 
 def funcionMediano(tamanio):
-	mediano = fuzz.gaussmf(tamanio.universe,350,50)
+	mediano = fuzz.trimf(tamanio.universe,[150,250,350])
 	return mediano
 
 def funcionGrande(tamanio):
-	grande = fuzz.zmf(tamanio.universe,300,400)
+	grande = fuzz.trapmf(tamanio.universe,[250,350,450,450])
 	for i in range(len(grande)):
 		grande[i] = 1-grande[i]
 	return grande

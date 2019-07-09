@@ -17,16 +17,13 @@ def tamanioTaza():
 	return tamanio
 
 def funcionPequenio(tamanio):
-	pequenio = fuzz.trapmf(tamanio.universe,[0,0,150,250])
+	pequenio = fuzz.trapmf(tamanio.universe,[0,0,90,200])
 	return pequenio
 
 def funcionMediano(tamanio):
-	mediano = fuzz.trimf(tamanio.universe,[150,250,350])
+	mediano = fuzz.trapmf(tamanio.universe,[90,200,250,350])
 	return mediano
 
 def funcionGrande(tamanio):
 	grande = fuzz.trapmf(tamanio.universe,[250,350,450,450])
-	for i in range(len(grande)):
-		grande[i] = 1-grande[i]
 	return grande
-

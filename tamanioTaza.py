@@ -13,7 +13,7 @@ def tamanioTaza():
 	#agua['poca'] = fuzz.trapmf(agua.universe,[0,0,150,250])
 	#agua['media'] = fuzz.trimf(agua.universe,[150,250,350])
 	#agua['mucha'] = fuzz.trapmf(agua.universe,[250,350,450,450])
-	graficar.graficar(tamanio.universe,[tamanio["pequenio"].mf,tamanio["mediano"].mf,tamanio["grande"].mf],["Pequeño","Mediano","Grande"],"Tamaño de taza en ml","Grado de pertenencia","Tamaño taza")
+	#graficar.graficar(tamanio.universe,[tamanio["pequenio"].mf,tamanio["mediano"].mf,tamanio["grande"].mf],["Pequeño","Mediano","Grande"],"Tamaño de taza en ml","Grado de pertenencia","Tamaño taza")
 	return tamanio
 
 def funcionPequenio(tamanio):

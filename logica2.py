@@ -8,7 +8,14 @@ import intensidad as intensity
 import cantidadAguaLecheChocolate as quantity
 from skfuzzy import control as ctrl
 
-
+def writeOutput(inputTipo, inputTemperatura, inputIntensidad, inputTamanio, agua, cafe,leche,choc,tiempo):
+	strName = "Cafe_"+str(inputTamanio)+"_"+str(inputTipo)+"_"+str(inputIntensidad)+"_"+str(inputTemperatura)
+	archivo = open(strName+".txt", 'w')
+	archivo.write("Nivel de Agua: "+str(agua)+" mL")
+	archivo.write("Cantidad de Café: "+str(cafe)+ " grs")
+	archivo.write("Cantidad de Leche: "+str(leche)+" grs")
+	archivo.write("Cantidad de Chocolate: "+str(choc)+" grs")
+	archivo.write("Tiempo de Preparación: "+str(tiempo)+ " minutos")
 
 class bcolors:
     HEADER = '\033[95m'
@@ -52,6 +59,7 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
 	elif inputTipo == "Capuccino":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
@@ -61,6 +69,7 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
 	elif inputTipo == "Mokaccino":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
@@ -72,6 +81,7 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Cantidad de Chocolate: "+str(resultadoChocolate)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,resultadoChocolate,resultadoTiempo)
 	elif inputTipo == "Espresso":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
@@ -79,6 +89,7 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Nivel de Agua: "+str(resultadoAgua)+" mL")
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,0,0,resultadoTiempo)
 	#Once computed, we can view the result as well as visualize it.
 	agua.view(sim=opciones)
 	
@@ -275,13 +286,13 @@ def menu():
 	tipoPreparacion = -1
 	exit = 0;
 	while opcion!= 5 and (cantidadCafe == -1 or temperaturaAmbiente == -1 or nivelIntensidad == -1 or tipoPreparacion == -1):		
-		parametros = [["Cantidad de Café",cantidadCafe],["Temperatura Ambiente",temperaturaAmbiente],["Nivel de Intensidad",nivelIntensidad],["Tipo de Preparación",tipoPreparacion]]
+		parametros = [["Tamaño de Taza",cantidadCafe],["Temperatura Ambiente",temperaturaAmbiente],["Nivel de Intensidad",nivelIntensidad],["Tipo de Preparación",tipoPreparacion]]
 		mostrarParametros(parametros)
 		print(bcolors.BOLD+bcolors.YELLOW+"Ingrese una de las siguientes opciones: "+ bcolors.ENDC)
 		if cantidadCafe == -1:	
-			print(bcolors.OKBLUE+"1. Ingresar tamanio de taza [ml]"+bcolors.ENDC)
+			print(bcolors.OKBLUE+"1. Ingresar tamaño de taza [ml]"+bcolors.ENDC)
 		else:
-			print(bcolors.OKGREEN+"1. Modificar tamanio de taza [ml]"+bcolors.ENDC)
+			print(bcolors.OKGREEN+"1. Modificar tamaño de taza [ml]"+bcolors.ENDC)
 		if temperaturaAmbiente == -1:
 			print(bcolors.OKBLUE+"2. Ingresar temperatura ambiente [C°]"+bcolors.ENDC)
 		else:

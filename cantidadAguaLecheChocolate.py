@@ -6,10 +6,10 @@ import graficar as graficar
 
 
 def cantidadesAguaLecheChocolateCafeTiempo():
-	agua = ctrl.Consequent([0, 30, 60, 90, 120, 150, 200, 250, 300, 350, 400, 450,455], 'agua')
+	agua = ctrl.Consequent([0, 30, 60, 90, 120, 150, 200, 250, 300, 350, 400, 450], 'agua')
 	agua['poca'] = fuzz.trapmf(agua.universe,[0,0,90,200])
 	agua['media'] = fuzz.trapmf(agua.universe,[90,200,250,350])
-	agua['mucha'] = fuzz.trapmf(agua.universe,[250,350,455,455])
+	agua['mucha'] = fuzz.trapmf(agua.universe,[250,350,450,450])
 	cafe = ctrl.Consequent(np.arange(0,30,1),'cafe')
 	cafe['poca'] = fuzz.trapmf(cafe.universe,[0,0,7,15])
 	cafe['media'] = fuzz.trimf(cafe.universe,[10,15,20])

@@ -28,8 +28,6 @@ def distance(valorAgua):
 			return int(valor)
 def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 	inputTaza = distance(inputTaza)
-	print("UWU")
-	print(inputTaza)
 	if inputTemperatura == 0:
 		inputTemperatura = inputTemperatura+1
 	print("Input taza: "+str(inputTaza))

@@ -28,7 +28,3 @@ def funcionCalor(temperatura):
 	#smf(valores,desde donde deja de ser 0, desde donde empieza a ser 1)
 	calor = fuzz.trapmf(temperatura.universe,[20,25,35,35])
 	return calor
-
-
-
-

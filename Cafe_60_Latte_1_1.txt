@@ -1,1 +1,0 @@
-Nivel de Agua: 90Cantidad de Café: 5Cantidad de Leche: 25Cantidad de Chocolate: 0Tiempo de Preparación: 16

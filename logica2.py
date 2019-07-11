@@ -6,6 +6,7 @@ import temperaturaAmbiental as temp
 import tamanioTaza as taza
 import intensidad as intensity
 import cantidadAguaLecheChocolate as quantity
+import matplotlib.pyplot as plt
 from skfuzzy import control as ctrl
 
 def writeOutput(inputTipo, inputTemperatura, inputIntensidad, inputTamanio, agua, cafe,leche,choc,tiempo):
@@ -15,7 +16,7 @@ def writeOutput(inputTipo, inputTemperatura, inputIntensidad, inputTamanio, agua
 	archivo.write("Cantidad de Café: "+str(cafe)+ " grs")
 	archivo.write("Cantidad de Leche: "+str(leche)+" grs")
 	archivo.write("Cantidad de Chocolate: "+str(choc)+" grs")
-	archivo.write("Tiempo de Preparación: "+str(tiempo)+ " minutos")
+	archivo.write("Tiempo de Preparación: "+str(tiempo)+ " segundos")
 
 class bcolors:
     HEADER = '\033[95m'
@@ -58,8 +59,14 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Nivel de Agua: "+str(resultadoAgua)+" mL")
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
-		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
+		agua.view(sim=opciones)
+		tiempo.view(sim=opciones)
+		cafe.view(sim=opciones)
+		chocolate.view(sim=opciones)
+		leche.view(sim=opciones)
+		plt.show()
 	elif inputTipo == "Capuccino":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
@@ -68,8 +75,14 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Nivel de Agua: "+str(resultadoAgua)+" mL")
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
-		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
+		agua.view(sim=opciones)
+		tiempo.view(sim=opciones)
+		cafe.view(sim=opciones)
+		chocolate.view(sim=opciones)
+		leche.view(sim=opciones)
+		plt.show()
 	elif inputTipo == "Mokaccino":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
@@ -80,18 +93,30 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Cantidad de Chocolate: "+str(resultadoChocolate)+" grs")
-		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,resultadoChocolate,resultadoTiempo)
+		agua.view(sim=opciones)
+		tiempo.view(sim=opciones)
+		cafe.view(sim=opciones)
+		chocolate.view(sim=opciones)
+		leche.view(sim=opciones)
+		plt.show()
 	elif inputTipo == "Espresso":
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
 		resultadoCafe =int(opciones.output['cafe'])
 		print("Nivel de Agua: "+str(resultadoAgua)+" mL")
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
-		print("Tiempo de Preparación: "+str(resultadoTiempo)+" minutos")
+		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,0,0,resultadoTiempo)
+		agua.view(sim=opciones)
+		tiempo.view(sim=opciones)
+		cafe.view(sim=opciones)
+		chocolate.view(sim=opciones)
+		leche.view(sim=opciones)
+		plt.show()
 	#Once computed, we can view the result as well as visualize it.
-	agua.view(sim=opciones)
+	
 	
 
 

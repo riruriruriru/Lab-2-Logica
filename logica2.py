@@ -39,6 +39,7 @@ class bcolors:
 #Se recibe el valor desfuzzificado del agua y se acerca al valor mayor más cercano
 #Ej: 128 ml => 150 ml
 def distance(valorAgua):
+	print("valorAgua"+str(valorAgua))#aqui
 	valoresAgua = [0,30,60,90,120,150,200,250,300,350,400,450]
 	for valor in valoresAgua:
 		distancia = valor-valorAgua

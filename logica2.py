@@ -9,6 +9,13 @@ import cantidadAguaLecheChocolate as quantity
 import matplotlib.pyplot as plt
 from skfuzzy import control as ctrl
 
+
+#Se importan los otros archivos de la carpeta que contienen el resto de las funciones
+###########################################################################################################
+################Bloque de definición de funciones##########################################################
+
+#Función que se encarga de escribir en un archivo de salida y escribe los resultados con el formato indicado
+#en el enunciado
 def writeOutput(inputTipo, inputTemperatura, inputIntensidad, inputTamanio, agua, cafe,leche,choc,tiempo):
 	strName = "Cafe_"+str(inputTamanio)+"_"+str(inputTipo)+"_"+str(inputIntensidad)+"_"+str(inputTemperatura)
 	archivo = open(strName+".txt", 'w')
@@ -18,6 +25,7 @@ def writeOutput(inputTipo, inputTemperatura, inputIntensidad, inputTamanio, agua
 	archivo.write("Cantidad de Chocolate: "+str(choc)+" grs")
 	archivo.write("Tiempo de Preparación: "+str(tiempo)+ " segundos")
 
+#Clase que contiene los colores utilizados en el menú
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -28,30 +36,35 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
+#Se recibe el valor desfuzzificado del agua y se acerca al valor mayor más cercano
+#Ej: 128 ml => 150 ml
 def distance(valorAgua):
 	valoresAgua = [0,30,60,90,120,150,200,250,300,350,400,450]
 	for valor in valoresAgua:
 		distancia = valor-valorAgua
 		if distancia >= 0:
 			return int(valor)
+#Función que recibe las entradas y llama a las correspondientes funciones de pertenencia
+#Además, llama a la función que define las reglas y luego utiliza los inputs en las reglas de inferencia
+#Finalmente, llama a la función de escritura de resultados y muestra los gráficos de las funciones de pertenencia
 def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 	inputTaza = distance(inputTaza)
 	if inputTemperatura == 0:
 		inputTemperatura = inputTemperatura+1
 	print("Input taza: "+str(inputTaza))
-	temperaturaFuzzy = temp.temperaturaAmbiental()
+	temperaturaFuzzy = temp.temperaturaAmbiental()#Se crean las funciones de pertenencia de los antecedentes
 	tamanioTazaFuzzy = taza.tamanioTaza()
 	intensidadFuzzy =intensity.intensidad()
-	agua, cafe, leche, chocolate, tiempo = quantity.cantidadesAguaLecheChocolateCafeTiempo()
-	reglas = rules.reglas(tamanioTazaFuzzy, temperaturaFuzzy, intensidadFuzzy, agua, cafe,leche, chocolate, tiempo, inputTipo)
-	controlCafetera = ctrl.ControlSystem(reglas)
-	opciones = ctrl.ControlSystemSimulation(controlCafetera)
+	agua, cafe, leche, chocolate, tiempo = quantity.cantidadesAguaLecheChocolateCafeTiempo() #Se llama a una función que retorna las funciones de pertenencia de los consecuentes
+	reglas = rules.reglas(tamanioTazaFuzzy, temperaturaFuzzy, intensidadFuzzy, agua, cafe,leche, chocolate, tiempo, inputTipo) #Se llama a la funcion que crea las reglas
+	controlCafetera = ctrl.ControlSystem(reglas) #Se crea un "controlador" con las reglas
+	opciones = ctrl.ControlSystemSimulation(controlCafetera) #Se simula el sistema de control 
 	opciones.input['temperatura'] = inputTemperatura
 	opciones.input['tamanio'] = inputTaza
-	opciones.input['intensidad'] = inputInt
+	opciones.input['intensidad'] = inputInt #Se entregan los input al sistema de control
 	opciones.compute()
-	
-	if inputTipo == "Latte":
+	#Bloque de if que obtiene los resultados dependiendo del tipo de café que se quiere preparar
+	if inputTipo == "Latte": 
 		resultadoAgua =distance(opciones.output['agua'])
 		resultadoTiempo =int(opciones.output['tiempo'])
 		resultadoLeche =int(opciones.output['leche'])
@@ -60,12 +73,16 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
-		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
+		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)#Se escribe en archivo de salida
+		temperaturaFuzzy.view(sim=opciones)
+		tamanioTazaFuzzy.view(sim=opciones)
+		intensidadFuzzy.view(sim=opciones)
+		
 		agua.view(sim=opciones)
 		tiempo.view(sim=opciones)
 		cafe.view(sim=opciones)
 		chocolate.view(sim=opciones)
-		leche.view(sim=opciones)
+		leche.view(sim=opciones) #Se muestran gráficos de resultado
 		plt.show()
 	elif inputTipo == "Capuccino":
 		resultadoAgua =distance(opciones.output['agua'])
@@ -77,6 +94,10 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Leche: "+str(resultadoLeche)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,0,resultadoTiempo)
+		temperaturaFuzzy.view(sim=opciones)
+		tamanioTazaFuzzy.view(sim=opciones)
+		intensidadFuzzy.view(sim=opciones)
+		
 		agua.view(sim=opciones)
 		tiempo.view(sim=opciones)
 		cafe.view(sim=opciones)
@@ -95,6 +116,10 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Chocolate: "+str(resultadoChocolate)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,resultadoLeche,resultadoChocolate,resultadoTiempo)
+		temperaturaFuzzy.view(sim=opciones)
+		tamanioTazaFuzzy.view(sim=opciones)
+		intensidadFuzzy.view(sim=opciones)
+		
 		agua.view(sim=opciones)
 		tiempo.view(sim=opciones)
 		cafe.view(sim=opciones)
@@ -109,21 +134,18 @@ def preparacionDeCafe(inputTemperatura, inputTaza, inputInt, inputTipo):
 		print("Cantidad de Café: "+str(resultadoCafe)+" grs")
 		print("Tiempo de Preparación: "+str(resultadoTiempo)+" segundos")
 		writeOutput(inputTipo, inputTemperatura, inputInt, inputTaza, resultadoAgua, resultadoCafe,0,0,resultadoTiempo)
+		temperaturaFuzzy.view(sim=opciones)
+		tamanioTazaFuzzy.view(sim=opciones)
+		intensidadFuzzy.view(sim=opciones)
+		
 		agua.view(sim=opciones)
 		tiempo.view(sim=opciones)
 		cafe.view(sim=opciones)
 		chocolate.view(sim=opciones)
 		leche.view(sim=opciones)
 		plt.show()
-	#Once computed, we can view the result as well as visualize it.
-	
-	
 
-
-	
-
-	
-
+#Función llamada por el menú que recibe el tamaño de la taza en ml
 def recibirCantidad():
 	cantidadCafe = 0
 	
@@ -162,10 +184,9 @@ def recibirCantidad():
 			print("Ingrese número entero entre [0,450]")
 	return
 	
-	
+#Funcion que muestra los parámetros ya ingresados en el menu principal
 def mostrarParametros(parametros):
-	#print("holi")
-	#print(parametros)
+
 	largo = len(parametros)
 	print("")
 	for par in parametros:
@@ -173,6 +194,7 @@ def mostrarParametros(parametros):
 			print(par[0] + ": " + str(par[1]))
 	#print("uwu")
 	print("")
+#funcion que recibe la temperatura ingresada por el usuario
 def recibirTemperatura():
 	nivelTemperatura = 0
 	
@@ -211,7 +233,7 @@ def recibirTemperatura():
 			print("Ingrese número entero entre [0,33]")
 	return
 	
-
+#Funcion que recibe el nivel de intensidad y lo retorna al menu principal
 def recibirNivelIntensidad():
 	nivelIntensidad = ["1", "2", "3", "4", "5"]
 	opcion = 0
@@ -256,7 +278,7 @@ def recibirNivelIntensidad():
 			cont = 0
 			print("Ingrese el número de la opción correspondiente")
 	return
-	
+#Funcion que recibe el tipo de preparacion y lo retorna al menu principal
 def recibirPreparacion():
 	tipoP = ["Latte", "Capuccino", "Mokaccino", "Espresso"]
 	opcion = 0
@@ -302,7 +324,7 @@ def recibirPreparacion():
 		
 
 
-
+#Funcion menu principal, en esta funcion se llama a las funciones que piden y procesan parámetros, además de la función que se encarga de preparar el café
 def menu():
 	opcion = 0
 	cantidadCafe = -1
@@ -319,7 +341,8 @@ def menu():
 		else:
 			print(bcolors.OKGREEN+"1. Modificar tamaño de taza [ml]"+bcolors.ENDC)
 		if temperaturaAmbiente == -1:
-			print(bcolors.OKBLUE+"2. Ingresar temperatura ambiente [C°]"+bcolors.ENDC)
+			print(bcolors.OKBLUE+"2. Ingresar temperatura ambiente [C°]"+
+			bcolors.ENDC)
 		else:
 			print(bcolors.OKGREEN+"2. Modificar temperatura ambiente [C°]"+bcolors.ENDC)
 		if nivelIntensidad == -1:	
@@ -331,7 +354,6 @@ def menu():
 		else: 
 			print(bcolors.OKGREEN+"4. Modificar Tipo de preparacion"+bcolors.ENDC)
 		print(bcolors.RED+"5. Salir"+bcolors.ENDC)
-		#print("6. Salir")
 		try:
 			opcion = int(input())
 			if opcion>5 or opcion<1:
@@ -348,7 +370,6 @@ def menu():
 				retorno = recibirTemperatura()
 				opcion = retorno[0]
 				temperaturaAmbiente = retorno[1]
-				#print("Temperatura Ambiente: " + str(temperaturaAmbiente))
 			elif opcion == 3:
 				retorno = []
 				retorno = recibirNivelIntensidad()
@@ -357,7 +378,6 @@ def menu():
 				if opcion == 5:
 					return
 				nivelIntensidad = retorno[1]
-				#print("Nivel de Intensidad: " + str(nivelIntensidad))
 			
 			elif opcion == 4:
 				retorno = []
@@ -366,19 +386,17 @@ def menu():
 				if opcion == 5:
 					return
 				tipoPreparacion = retorno[1]
-				#print("Retorno: ")
-				#print(retorno)
-				#print("Tipo preparacion: " + tipoPreparacion)
+			
 			else:
 				exit = 1
 		except:
-			#print("que wea pasa uwu")
 			print("Ingrese el número de la opción correspondiente")
-	if exit == 0:
+	if exit == 0:#Si se ingresaron todos los parámetros y el usuario no eligió la opción salir:
 		print(bcolors.BOLD+bcolors.YELLOW+"Terminó de ingresar todas las opciones"+bcolors.ENDC)
 		print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Iniciando preparación de café ☕️ ..."+bcolors.ENDC)
 		print(bcolors.BOLD+bcolors.YELLOW+bcolors.UNDERLINE + "Preparando ☕️ "+str(tipoPreparacion)+""+bcolors.ENDC)
-		preparacionDeCafe(temperaturaAmbiente,cantidadCafe,nivelIntensidad,tipoPreparacion)
+		preparacionDeCafe(temperaturaAmbiente,cantidadCafe,nivelIntensidad,tipoPreparacion) #Se prepara café
 	return
 
-menu()
+####################Bloque principal ###############################
+menu() #Se llama a la funcion menu, que consiste en el menu principal y se encarga de llamar al resto de funciones

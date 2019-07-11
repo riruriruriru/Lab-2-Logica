@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-
+#función que grafica una funcion de pertenencia
 def graficar(x,y,names,xlabel,ylabel,title):
 	cont = 0
 	for variableLinguistica in y:
@@ -12,7 +12,7 @@ def graficar(x,y,names,xlabel,ylabel,title):
 	plt.show()
 	return
 
-
+#funcion que grafica 5 funciones de pertenencia, se utiliza para graficar los consecuentes
 def graficarGrid(x1,x2,x3,x4,x5,y1,y2,y3,y4,y5,names,xlabel,ylabel,title):
 	f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
 	cont = 0

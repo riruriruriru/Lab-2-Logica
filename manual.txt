@@ -1,0 +1,14 @@
+Requisitos previos:
+	Tener python3 instalado
+	Instalación previa de módulos matplotlib y scikit-fuzzy
+Para ejecutar el programa, se debe ejecutar utilizando python3 el archivo "logica2.py"
+Una vez ejecutado el programa, se desplegará inmediatamente el menú.
+
+En el menú se deben ingresar las opciones indicadas, se hicieron las comprobaciones de error correspondientes para que el programa
+no falle con ningún tipo de entrada.
+
+Una vez ingresadas las 4 opciones de input, automáticamente el programa procederá a preparar el café.
+Mientras se prepara el café, se mostrarán primero todos los gráficos de las funciones de pertenencia y luego los gráficos
+de los resultados de los antecedentes y consecuentes.
+
+Una vez preparado el café, el programa terminará su ejecución. 

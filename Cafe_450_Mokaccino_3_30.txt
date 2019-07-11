@@ -1,0 +1,1 @@
+Nivel de Agua: 400 mLCantidad de Café: 15 grsCantidad de Leche: 25 grsCantidad de Chocolate: 63 grsTiempo de Preparación: 16 segundos
